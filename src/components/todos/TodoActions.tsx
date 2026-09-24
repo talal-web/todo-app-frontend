@@ -118,7 +118,7 @@ export default function TodoActions({ todo }: TodoActionsProps) {
         type="button"
         onClick={handleToggle}
         disabled={updateTodo.isPending || deleteTodo.isPending}
-        className={`whitespace-nowrap rounded-md px-2.5 py-1.5 text-xs font-medium transition sm:rounded-lg sm:px-3 sm:py-2 sm:text-sm ${
+        className={`whitespace-nowrap cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition sm:rounded-lg sm:px-3 sm:py-2 sm:text-sm ${
           todo.completed
             ? "bg-amber-50 text-amber-700 hover:bg-amber-100"
             : "bg-green-50 text-green-700 hover:bg-green-100"
@@ -138,7 +138,7 @@ export default function TodoActions({ todo }: TodoActionsProps) {
         disabled={updateTodo.isPending || deleteTodo.isPending}
         title="Edit todo"
         aria-label="Edit todo"
-        className="shrink-0 rounded-md bg-gray-100 p-1.5 text-gray-600 transition hover:bg-gray-200 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-lg sm:p-2"
+        className="shrink-0 cursor-pointer rounded-md bg-gray-100 p-1.5 text-gray-600 transition hover:bg-gray-200 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-lg sm:p-2"
       >
         <Pencil size={15} strokeWidth={2} className="sm:h-4 sm:w-4" />
       </button>
@@ -150,7 +150,7 @@ export default function TodoActions({ todo }: TodoActionsProps) {
         disabled={deleteTodo.isPending || updateTodo.isPending}
         title="Delete todo"
         aria-label="Delete todo"
-        className="shrink-0 rounded-md bg-red-50 p-1.5 text-red-600 transition hover:bg-red-100 hover:text-red-700 disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-lg sm:p-2"
+        className="shrink-0 cursor-pointer rounded-md bg-red-50 p-1.5 text-red-600 transition hover:bg-red-100 hover:text-red-700 disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-lg sm:p-2"
       >
         <Trash2 size={15} strokeWidth={2} className="sm:h-4 sm:w-4" />
       </button>

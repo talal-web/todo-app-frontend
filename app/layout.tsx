@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
+import Navbar from "@/src/components/Navbar";
+import Footer from "@/src/components/Footer";
 import QueryProvider from "@/src/providers/query-provider";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </QueryProvider>
 
         <Toaster position="top-right" richColors closeButton />
       </body>
