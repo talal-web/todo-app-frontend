@@ -1,8 +1,9 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
-import { useLogin } from "@/src/hooks/use-login";
+import { useLogin } from "@/src/hooks/useLogin";
 import type { LoginRequest } from "@/src/types/auth";
 
 interface LoginModalProps {
@@ -11,6 +12,8 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -23,6 +26,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
     mutate(data, {
       onSuccess: () => {
         onClose();
+        router.push("/todos");
       },
     });
   };

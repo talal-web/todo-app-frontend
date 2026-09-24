@@ -7,7 +7,7 @@ import RegisterModal from "@/src/components/auth/RegisterModal";
 
 import Navbar from "@/src/components/home/Navbar";
 import Hero from "@/src/components/home/Hero";
-import TodoPreviewSection from "@/src/components/home/TodoPreviewSection";
+
 import Features from "@/src/components/home/Features";
 
 export default function Home() {
@@ -29,8 +29,6 @@ export default function Home() {
       <Navbar onLogin={openLogin} onRegister={openRegister} />
 
       <Hero onLogin={openLogin} onRegister={openRegister} />
-
-      <TodoPreviewSection onAddTask={openRegister} />
 
       <Features />
 

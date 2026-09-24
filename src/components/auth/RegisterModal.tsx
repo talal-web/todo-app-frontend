@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 
-import { useRegister } from "@/src/hooks/use-register";
+import { useRegister } from "@/src/hooks/useRegister";
 import type { RegisterRequest } from "@/src/types/auth";
 
 interface RegisterModalProps {

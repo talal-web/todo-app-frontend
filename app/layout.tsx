@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
+
 import QueryProvider from "@/src/providers/query-provider";
 import "./globals.css";
 
@@ -16,6 +18,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <QueryProvider>{children}</QueryProvider>
+
+        <Toaster position="top-right" richColors closeButton />
       </body>
     </html>
   );
