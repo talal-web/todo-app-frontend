@@ -2,6 +2,7 @@ import api from "../lib/axios";
 
 import type {
   Todo,
+  GetTodosResponse,
   CreateTodoRequest,
   UpdateTodoRequest,
 } from "@/src/types/todo";
@@ -20,11 +21,20 @@ export const todoService = {
     }
   },
 
-  async getAll(): Promise<Todo[]> {
+  async getAll(): Promise<GetTodosResponse> {
     try {
-      const response = await api.get<ApiResponse<Todo[]>>("/api/todos");
+      const response =
+        await api.get<ApiResponse<GetTodosResponse>>("/api/todos");
 
-      return response.data.data ?? [];
+      return (
+        response.data.data ?? {
+          user: {
+            id: "",
+            name: null,
+          },
+          todos: [],
+        }
+      );
     } catch (error) {
       throw ApiError.fromAxios(error);
     }

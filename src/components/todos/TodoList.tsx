@@ -4,7 +4,7 @@ import { useTodos } from "@/src/hooks/useTodos";
 import TodoActions from "./TodoActions";
 
 export default function TodoList() {
-  const { todos, isLoading, isError, error } = useTodos();
+  const { user, todos, isLoading, isError, error } = useTodos();
 
   if (isLoading) {
     return (
@@ -36,7 +36,9 @@ export default function TodoList() {
         </h3>
 
         <p className="mt-1 text-sm text-gray-500">
-          Add your first todo to get started.
+          {user?.name
+            ? `${user.name}, add your first todo to get started.`
+            : "Add your first todo to get started."}
         </p>
       </div>
     );
@@ -50,7 +52,7 @@ export default function TodoList() {
       <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4 sm:px-6 sm:py-5">
         <div className="min-w-0">
           <h2 className="text-base font-semibold text-gray-900 sm:text-lg">
-            Your Todos
+            {user?.name ? `${user.name}'s Todos` : "Your Todos"}
           </h2>
 
           <p className="mt-0.5 text-xs text-gray-500 sm:mt-1 sm:text-sm">
@@ -69,43 +71,44 @@ export default function TodoList() {
         {todos.map((todo) => (
           <li
             key={todo.id}
-            className="group px-4 py-3.5 transition hover:bg-gray-50 sm:flex sm:items-center sm:justify-between sm:gap-4 sm:px-6 sm:py-4"
+            className="group flex items-center justify-between gap-3 px-4 py-3 transition hover:bg-gray-50 sm:px-6"
           >
             {/* Todo information */}
-            <div className="flex min-w-0 items-center gap-2.5 sm:flex-1 sm:gap-3">
+            <div className="flex min-w-0 flex-1 items-center gap-2.5">
               {/* Status dot */}
               <span
-                className={`h-2 w-2 shrink-0 rounded-full sm:h-2.5 sm:w-2.5 ${
-                  todo.completed ? "bg-green-500" : "bg-gray-300"
+                className={`h-2 w-2 shrink-0 rounded-full ${
+                  todo.completed ? "bg-green-500" : "bg-yellow-500"
                 }`}
               />
 
-              {/* Title */}
-              <span
-                className={`min-w-0 truncate text-sm font-medium ${
-                  todo.completed
-                    ? "text-gray-400 line-through"
-                    : "text-gray-700"
-                }`}
-              >
-                {todo.title}
-              </span>
+              {/* Title + Status */}
+              <div className="flex min-w-0 items-center gap-2">
+                <span
+                  className={`truncate text-sm font-medium ${
+                    todo.completed
+                      ? "text-gray-400 line-through"
+                      : "text-gray-700"
+                  }`}
+                >
+                  {todo.title}
+                </span>
+
+                {/* Compact Info Badge */}
+                <span
+                  className={`hidden shrink-0 items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium sm:inline-flex ${
+                    todo.completed
+                      ? "bg-green-50 text-green-600"
+                      : "bg-yellow-50 text-yellow-600"
+                  }`}
+                >
+                  {todo.completed ? "Completed" : "Pending"}
+                </span>
+              </div>
             </div>
 
-            {/* Right side */}
-            <div className="mt-3 flex items-center justify-between gap-2 sm:mt-0 sm:shrink-0 sm:justify-end sm:gap-3">
-              {/* Status */}
-              <span
-                className={`rounded-full px-2.5 py-1 text-xs font-medium ${
-                  todo.completed
-                    ? "bg-green-100 text-green-700"
-                    : "bg-gray-100 text-gray-600"
-                }`}
-              >
-                {todo.completed ? "Completed" : "Pending"}
-              </span>
-
-              {/* Actions */}
+            {/* Actions */}
+            <div className="shrink-0">
               <TodoActions todo={todo} />
             </div>
           </li>

@@ -62,7 +62,9 @@ export function useTodos() {
 
   return {
     // Query
-    todos: todosQuery.data ?? [],
+    user: todosQuery.data?.user ?? null,
+    todos: todosQuery.data?.todos ?? [],
+
     isLoading: todosQuery.isLoading,
     isError: todosQuery.isError,
     error: todosQuery.error,

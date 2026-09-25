@@ -1,11 +1,14 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 import { useRegister } from "@/src/hooks/useRegister";
 import type { RegisterRequest } from "@/src/types/auth";
 
 export default function RegisterForm() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -15,7 +18,11 @@ export default function RegisterForm() {
   const { mutate: registerUser, isPending, error } = useRegister();
 
   const onSubmit = (data: RegisterRequest) => {
-    registerUser(data);
+    registerUser(data, {
+      onSuccess: () => {
+        router.push("/login");
+      },
+    });
   };
 
   return (

@@ -91,7 +91,7 @@ export default function TodoActions({ todo }: TodoActionsProps) {
           type="button"
           onClick={handleUpdate}
           disabled={updateTodo.isPending}
-          className="shrink-0 rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:px-3 sm:py-2 sm:text-sm"
+          className="shrink-0 cursor-pointer rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:px-3 sm:py-2 sm:text-sm"
         >
           {updateTodo.isPending ? "Saving..." : "Save"}
         </button>
@@ -103,7 +103,7 @@ export default function TodoActions({ todo }: TodoActionsProps) {
             setIsEditing(false);
           }}
           disabled={updateTodo.isPending}
-          className="shrink-0 rounded-md bg-gray-100 px-2.5 py-1.5 text-xs font-medium text-gray-700 transition hover:bg-gray-200 sm:px-3 sm:py-2 sm:text-sm"
+          className="shrink-0 cursor-pointer rounded-md bg-gray-100 px-2.5 py-1.5 text-xs font-medium text-gray-700 transition hover:bg-gray-200 sm:px-3 sm:py-2 sm:text-sm"
         >
           Cancel
         </button>
@@ -118,17 +118,28 @@ export default function TodoActions({ todo }: TodoActionsProps) {
         type="button"
         onClick={handleToggle}
         disabled={updateTodo.isPending || deleteTodo.isPending}
-        className={`whitespace-nowrap cursor-pointer rounded-md px-2.5 py-1.5 text-xs font-medium transition sm:rounded-lg sm:px-3 sm:py-2 sm:text-sm ${
+        aria-label={todo.completed ? "Mark as pending" : "Mark as completed"}
+        title={todo.completed ? "Mark as pending" : "Mark as completed"}
+        className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-md border transition ${
           todo.completed
-            ? "bg-amber-50 text-amber-700 hover:bg-amber-100"
-            : "bg-green-50 text-green-700 hover:bg-green-100"
-        }`}
+            ? "border-green-500 bg-green-500 text-white hover:bg-green-600"
+            : "border-gray-300 bg-white text-transparent hover:border-green-500 hover:bg-green-50"
+        } disabled:cursor-not-allowed disabled:opacity-50`}
       >
-        <span className="sm:hidden">{todo.completed ? "Pending" : "Done"}</span>
-
-        <span className="hidden sm:inline">
-          {todo.completed ? "Mark Pending" : "Complete"}
-        </span>
+        {todo.completed && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="h-4 w-4"
+          >
+            <path
+              fillRule="evenodd"
+              d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-7.5 9a.75.75 0 0 1-1.127.075l-4-4a.75.75 0 0 1 1.06-1.06l3.41 3.41 6.97-8.363a.75.75 0 0 1 1.044-.114Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        )}
       </button>
 
       {/* Edit */}

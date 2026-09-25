@@ -32,7 +32,7 @@ export default function AddTodo() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3 sm:flex-row"
+      className="flex flex-col gap-3 sm:flex-row sm:items-start"
     >
       <div className="flex-1">
         <input
