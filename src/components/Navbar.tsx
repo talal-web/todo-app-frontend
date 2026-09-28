@@ -3,17 +3,25 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const navigation = [
-  { label: "Todos", href: "/todos" },
-  { label: "Login", href: "/login" },
-  { label: "Register", href: "/register" },
-];
+import { useCurrentUser } from "@/src/hooks/useCurrentUser";
+import { useLogout } from "@/src/hooks/useLogout";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const { isLoading, isAuthenticated } = useCurrentUser();
+  const logout = useLogout();
+
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout.mutate(undefined, {
+      onSuccess: () => {
+        closeMenu();
+      },
+    });
   };
 
   return (
@@ -31,19 +39,41 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-1 md:flex">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={
-                  item.href === "/register"
-                    ? "rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
-                    : "rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
-                }
+            <Link
+              href="/todos"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
+            >
+              Todos
+            </Link>
+
+            {isLoading ? (
+              <div className="h-9 w-24 animate-pulse rounded-lg bg-gray-100" />
+            ) : isAuthenticated ? (
+              <button
+                type="button"
+                onClick={handleLogout}
+                disabled={logout.isPending}
+                className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {item.label}
-              </Link>
-            ))}
+                {logout.isPending ? "Logging out..." : "Logout"}
+              </button>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
+                >
+                  Login
+                </Link>
+
+                <Link
+                  href="/register"
+                  className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,20 +120,44 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="border-t border-gray-100 py-3 md:hidden">
             <div className="flex flex-col gap-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeMenu}
-                  className={
-                    item.href === "/register"
-                      ? "rounded-lg bg-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-blue-700"
-                      : "rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
-                  }
+              <Link
+                href="/todos"
+                onClick={closeMenu}
+                className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              >
+                Todos
+              </Link>
+
+              {isLoading ? (
+                <div className="h-10 animate-pulse rounded-lg bg-gray-100" />
+              ) : isAuthenticated ? (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  disabled={logout.isPending}
+                  className="rounded-lg px-4 py-2.5 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {item.label}
-                </Link>
-              ))}
+                  {logout.isPending ? "Logging out..." : "Logout"}
+                </button>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={closeMenu}
+                    className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    href="/register"
+                    onClick={closeMenu}
+                    className="rounded-lg bg-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-blue-700"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
