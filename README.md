@@ -1,6 +1,6 @@
 # Todo App — Frontend
 
-A modern Todo application frontend built with Next.js, TypeScript, Tailwind CSS, TanStack Query, React Hook Form, and Better Auth.
+A modern Todo application frontend built with Next.js, TypeScript, Tailwind CSS, TanStack Query, and React Hook Form.
 
 ## Tech Stack
 
@@ -12,12 +12,11 @@ A modern Todo application frontend built with Next.js, TypeScript, Tailwind CSS,
 - Axios
 - Sonner
 - Lucide React
-- Better Auth
 
 ## Features
 
 - User registration and login
-- Authentication with Better Auth
+- Authentication with JWT
 - Todo creation
 - Todo listing
 - Todo editing

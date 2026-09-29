@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { useCurrentUser } from "@/src/hooks/useCurrentUser";
-import { useLogout } from "@/src/hooks/useLogout";
+import { useLogout } from "@/src/hooks/auth/useLogout";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

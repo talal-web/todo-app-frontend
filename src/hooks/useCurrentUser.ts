@@ -1,13 +1,23 @@
 "use client";
 
-import { authClient } from "@/src/lib/auth-client";
+import { useQuery } from "@tanstack/react-query";
+import { authService } from "@/src/services/auth.service";
 
 export function useCurrentUser() {
-  const { data: session, isPending } = authClient.useSession();
+  const {
+    data: user,
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ["currentUser"],
+    queryFn: authService.getCurrentUser,
+    retry: false,
+  });
 
   return {
-    user: session?.user ?? null,
+    user: user ?? null,
     isLoading: isPending,
-    isAuthenticated: !!session,
+    isAuthenticated: !!user,
+    isError,
   };
 }

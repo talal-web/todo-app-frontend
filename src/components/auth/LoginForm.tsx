@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import { useLogin } from "@/src/hooks/useLogin";
+import { useLogin } from "@/src/hooks/auth/useLogin";
 import type { LoginRequest } from "@/src/types/auth";
 
 export default function LoginForm() {
