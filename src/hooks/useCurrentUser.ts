@@ -17,7 +17,7 @@ export function useCurrentUser() {
   return {
     user: user ?? null,
     isLoading: isPending,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user && !isError,
     isError,
   };
 }

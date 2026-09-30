@@ -6,7 +6,11 @@ import { toast } from "sonner";
 import { useTodos } from "@/src/hooks/useTodos";
 import type { CreateTodoRequest } from "@/src/types/todo";
 
-export default function AddTodo() {
+type AddTodoProps = {
+  onSuccess?: () => void;
+};
+
+export default function AddTodo({ onSuccess }: AddTodoProps) {
   const { createTodo } = useTodos();
 
   const {
@@ -21,6 +25,7 @@ export default function AddTodo() {
       onSuccess: () => {
         reset();
         toast.success("Todo added successfully");
+        onSuccess?.();
       },
 
       onError: (error) => {
@@ -30,13 +35,11 @@ export default function AddTodo() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3 sm:flex-row sm:items-start"
-    >
-      <div className="flex-1">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+      <div>
         <input
           type="text"
+          autoFocus
           placeholder="What do you need to do?"
           {...register("title", {
             required: "Todo title is required",
@@ -52,7 +55,7 @@ export default function AddTodo() {
       <button
         type="submit"
         disabled={createTodo.isPending}
-        className="rounded-lg bg-blue-600 px-6 py-3 cursor-pointer text-sm font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        className="cursor-pointer rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {createTodo.isPending ? "Adding..." : "Add Todo"}
       </button>

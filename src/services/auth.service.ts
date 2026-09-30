@@ -20,10 +20,12 @@ export const authService = {
         data,
       );
 
+      const result = response.data;
+
       return {
-        success: response.data.success,
-        message: response.data.message,
-        data: response.data.data!,
+        success: result.success,
+        message: result.message,
+        data: result.data!,
       };
     } catch (error) {
       throw ApiError.fromAxios(error);
@@ -37,10 +39,12 @@ export const authService = {
         data,
       );
 
+      const result = response.data;
+
       return {
-        success: response.data.success,
-        message: response.data.message,
-        data: response.data.data!,
+        success: result.success,
+        message: result.message,
+        data: result.data!,
       };
     } catch (error) {
       throw ApiError.fromAxios(error);
@@ -51,9 +55,11 @@ export const authService = {
     try {
       const response = await api.post<ApiResponse>("/api/auth/logout");
 
+      const result = response.data;
+
       return {
-        success: response.data.success,
-        message: response.data.message,
+        success: result.success,
+        message: result.message,
       };
     } catch (error) {
       throw ApiError.fromAxios(error);

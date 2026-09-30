@@ -39,24 +39,26 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-1 md:flex">
-            <Link
-              href="/todos"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
-            >
-              Todos
-            </Link>
-
             {isLoading ? (
               <div className="h-9 w-24 animate-pulse rounded-lg bg-gray-100" />
             ) : isAuthenticated ? (
-              <button
-                type="button"
-                onClick={handleLogout}
-                disabled={logout.isPending}
-                className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {logout.isPending ? "Logging out..." : "Logout"}
-              </button>
+              <>
+                <Link
+                  href="/todos"
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
+                >
+                  Todos
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  disabled={logout.isPending}
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-gray-900 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {logout.isPending ? "Logging out..." : "Logout"}
+                </button>
+              </>
             ) : (
               <>
                 <Link
@@ -120,25 +122,27 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="border-t border-gray-100 py-3 md:hidden">
             <div className="flex flex-col gap-1">
-              <Link
-                href="/todos"
-                onClick={closeMenu}
-                className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
-              >
-                Todos
-              </Link>
-
               {isLoading ? (
                 <div className="h-10 animate-pulse rounded-lg bg-gray-100" />
               ) : isAuthenticated ? (
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  disabled={logout.isPending}
-                  className="rounded-lg px-4 py-2.5 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {logout.isPending ? "Logging out..." : "Logout"}
-                </button>
+                <>
+                  <Link
+                    href="/todos"
+                    onClick={closeMenu}
+                    className="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+                  >
+                    Todos
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    disabled={logout.isPending}
+                    className="rounded-lg px-4 py-2.5 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {logout.isPending ? "Logging out..." : "Logout"}
+                  </button>
+                </>
               ) : (
                 <>
                   <Link
