@@ -24,6 +24,9 @@ export default function TodoList() {
     );
   }
 
+  const completedCount = todos.filter((todo) => todo.completed).length;
+  const pendingCount = todos.length - completedCount;
+
   if (todos.length === 0) {
     return (
       <div className="mt-4 rounded-xl border border-dashed border-gray-300 bg-white p-8 text-center shadow-sm sm:mt-6 sm:rounded-2xl sm:p-10">
@@ -44,12 +47,10 @@ export default function TodoList() {
     );
   }
 
-  const completedCount = todos.filter((todo) => todo.completed).length;
-
   return (
     <section className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm sm:mt-6 sm:rounded-2xl">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4 sm:px-6 sm:py-5">
+      <div className="flex items-center justify-between gap-3 border-b border-gray-200 px-4 py-4 sm:px-6 sm:py-5">
         <div className="min-w-0">
           <h2 className="text-base font-semibold text-gray-900 sm:text-lg">
             {user?.name ? `${user.name}'s Todos` : "Your Todos"}
@@ -60,9 +61,15 @@ export default function TodoList() {
           </p>
         </div>
 
-        <div className="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 sm:px-3">
-          <span className="sm:hidden">{completedCount} done</span>
-          <span className="hidden sm:inline">{completedCount} completed</span>
+        <div className="flex shrink-0 items-center gap-2">
+          <span className="rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700 sm:px-3">
+            <span className="sm:hidden">{completedCount} done</span>
+            <span className="hidden sm:inline">{completedCount} completed</span>
+          </span>
+
+          <span className="hidden rounded-full bg-yellow-50 px-3 py-1 text-xs font-medium text-yellow-700 sm:inline-flex">
+            {pendingCount} pending
+          </span>
         </div>
       </div>
 
@@ -77,6 +84,8 @@ export default function TodoList() {
             <div className="flex min-w-0 flex-1 items-center gap-2.5">
               {/* Status dot */}
               <span
+                aria-label={todo.completed ? "Completed" : "Pending"}
+                title={todo.completed ? "Completed" : "Pending"}
                 className={`h-2 w-2 shrink-0 rounded-full ${
                   todo.completed ? "bg-green-500" : "bg-yellow-500"
                 }`}
@@ -94,7 +103,6 @@ export default function TodoList() {
                   {todo.title}
                 </span>
 
-                {/* Compact Info Badge */}
                 <span
                   className={`hidden shrink-0 items-center rounded-md px-1.5 py-0.5 text-[10px] font-medium sm:inline-flex ${
                     todo.completed
